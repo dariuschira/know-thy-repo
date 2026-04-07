@@ -6,6 +6,11 @@
   Claude Code skills to help you get onboarded and up to date with your repository, stack, and architecture.
 </p>
 
+<p align="center">
+  <a href="https://github.com/dariuschira/know-thy-repo/releases/latest"><img src="https://img.shields.io/github/v/release/dariuschira/know-thy-repo?label=version&style=flat-square" alt="version" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/dariuschira/know-thy-repo?style=flat-square" alt="license" /></a>
+</p>
+
 ## What is this?
 
 Three Claude Code skills that turn any git repository into an interactive learning environment:
@@ -28,6 +33,16 @@ curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/inst
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash -s -- --local
+```
+
+**Pin a specific version:**
+
+```bash
+# Install a specific release
+curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash -s -- v1.0.0
+
+# Explicitly request latest
+curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash -s -- latest
 ```
 
 <details>
