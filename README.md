@@ -16,43 +16,37 @@ Three Claude Code skills that turn any git repository into an interactive learni
 | `/learn-thy-repo` | Guided learning session — pick a topic and learn concepts one by one with real code examples |
 | `/test-thy-knowledge` | Quiz mode — configurable format, question count, and scoring |
 
-## Prerequisites
+## Install
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
-
-## Installation
-
-### From GitHub (recommended)
-
-Add the skills to any project by adding this to your project's `.claude/settings.json`:
-
-```json
-{
-  "skills": [
-    "github:dariuschira/know-thy-repo"
-  ]
-}
+```bash
+curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash
 ```
 
-Or add them to your user-level config at `~/.claude/settings.json` to make them available in every project.
+That's it. Skills are now available in every Claude Code session.
 
-### From a local checkout
+<details>
+<summary>Other installation methods</summary>
 
-1. Clone the repo:
+### From a local clone (enables auto-updates via git pull)
 
 ```bash
 git clone git@github.com:dariuschira/know-thy-repo.git
+cd know-thy-repo && ./install.sh
 ```
 
-2. Reference the local path in your project's `.claude/settings.json`:
+This symlinks instead of copying — `git pull` updates skills immediately.
 
-```json
-{
-  "skills": [
-    "/path/to/know-thy-repo"
-  ]
-}
+### Uninstall
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash -s -- --uninstall
 ```
+
+</details>
+
+## Prerequisites
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
 
 ## Usage
 
