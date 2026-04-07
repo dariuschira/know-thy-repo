@@ -19,6 +19,24 @@ Skills store knowledge in their own isolated directory at `~/.claude/skill-data/
 
 This keeps knowledge outside the target repo, outside Claude's shared memory system, and fully namespaced to this skill — no interference with other skills or the user's MEMORY.md.
 
+## Versioning
+
+This project follows [semver](https://semver.org/). Each release is tagged (e.g. `v1.0.0`) and published as a GitHub release. The install script supports version pinning:
+
+- `latest` (default) — fetches from `main`
+- `v1.0.0`, `v1.2.3`, etc. — fetches from that exact git tag
+
+When making changes, bump the version accordingly:
+- **patch** (`v1.0.1`) — bug fixes, typo corrections, minor prompt tweaks
+- **minor** (`v1.1.0`) — new features, new knowledge categories, improved prompts
+- **major** (`v2.0.0`) — breaking changes to skill behavior or storage format
+
+After committing, tag and push the release:
+```bash
+git tag -a v1.x.x -m "v1.x.x"
+git push origin main --tags
+```
+
 ## Development
 
 When modifying skills:
