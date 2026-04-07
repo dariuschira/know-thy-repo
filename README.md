@@ -1,6 +1,10 @@
-# know-thy-repo
+<p align="center">
+  <img src="logo.png" alt="Know Thy Repo" />
+</p>
 
-Claude Code skills to help you get onboarded and up to date with your repository, stack, and architecture.
+<p align="center">
+  Claude Code skills to help you get onboarded and up to date with your repository, stack, and architecture.
+</p>
 
 ## What is this?
 
