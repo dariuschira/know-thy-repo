@@ -4,33 +4,38 @@ set -e
 REPO="dariuschira/know-thy-repo"
 BRANCH="main"
 BASE_URL="https://raw.githubusercontent.com/${REPO}/${BRANCH}/.claude/skills"
-SKILL_DIR="${HOME}/.claude/skills"
 SKILLS="explore-thy-repo learn-thy-repo test-thy-knowledge"
 
-if [ "$1" = "--uninstall" ]; then
+# Determine target: --local installs into .claude/skills/ in the current project
+if [ "$1" = "--local" ]; then
+  SKILL_DIR=".claude/skills"
+  shift
+elif [ "$1" = "--uninstall" ]; then
+  SKILL_DIR="${HOME}/.claude/skills"
   for skill in $SKILLS; do
-    rm -f "${SKILL_DIR}/${skill}.md"
+    rm -rf "${SKILL_DIR}/${skill}"
     echo "  removed /${skill}"
   done
   echo ""
   echo "Done — skills removed."
   exit 0
+else
+  SKILL_DIR="${HOME}/.claude/skills"
 fi
-
-mkdir -p "$SKILL_DIR"
 
 # Detect if running from a local clone or via curl
 SCRIPT_DIR="$(cd "$(dirname "$0" 2>/dev/null)" 2>/dev/null && pwd 2>/dev/null || echo "")"
 LOCAL_SOURCE="${SCRIPT_DIR}/.claude/skills"
 
 for skill in $SKILLS; do
-  if [ -n "$SCRIPT_DIR" ] && [ -f "${LOCAL_SOURCE}/${skill}.md" ]; then
-    ln -sf "${LOCAL_SOURCE}/${skill}.md" "${SKILL_DIR}/${skill}.md"
+  mkdir -p "${SKILL_DIR}/${skill}"
+  if [ -n "$SCRIPT_DIR" ] && [ -f "${LOCAL_SOURCE}/${skill}/SKILL.md" ]; then
+    ln -sf "${LOCAL_SOURCE}/${skill}/SKILL.md" "${SKILL_DIR}/${skill}/SKILL.md"
   else
-    curl -fsSL "${BASE_URL}/${skill}.md" -o "${SKILL_DIR}/${skill}.md"
+    curl -fsSL "${BASE_URL}/${skill}/SKILL.md" -o "${SKILL_DIR}/${skill}/SKILL.md"
   fi
   echo "  installed /${skill}"
 done
 
 echo ""
-echo "Done — skills are now available in all Claude Code sessions."
+echo "Done — skills are now available in Claude Code."

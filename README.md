@@ -18,11 +18,17 @@ Three Claude Code skills that turn any git repository into an interactive learni
 
 ## Install
 
+**Globally** (available in every project):
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash
 ```
 
-That's it. Skills are now available in every Claude Code session.
+**In a single project** (from your project root):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/dariuschira/know-thy-repo/main/install.sh | bash -s -- --local
+```
 
 <details>
 <summary>Other installation methods</summary>
