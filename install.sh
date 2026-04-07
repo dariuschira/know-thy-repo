@@ -2,15 +2,36 @@
 set -e
 
 REPO="dariuschira/know-thy-repo"
-BRANCH="main"
-BASE_URL="https://raw.githubusercontent.com/${REPO}/${BRANCH}/.claude/skills"
 SKILLS="explore-thy-repo learn-thy-repo test-thy-knowledge"
+VERSION="latest"
+SCOPE="global"
 
-# Determine target: --local installs into .claude/skills/ in the current project
-if [ "$1" = "--local" ]; then
+# Parse arguments
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --local)    SCOPE="local"; shift ;;
+    --uninstall) SCOPE="uninstall"; shift ;;
+    --version)  VERSION="$2"; shift 2 ;;
+    --version=*) VERSION="${1#--version=}"; shift ;;
+    v[0-9]*)    VERSION="$1"; shift ;;
+    latest)     VERSION="latest"; shift ;;
+    *)          shift ;;
+  esac
+done
+
+# Resolve version to a git ref
+if [ "$VERSION" = "latest" ]; then
+  REF="main"
+else
+  REF="$VERSION"
+fi
+
+BASE_URL="https://raw.githubusercontent.com/${REPO}/${REF}/.claude/skills"
+
+# Set target directory
+if [ "$SCOPE" = "local" ]; then
   SKILL_DIR=".claude/skills"
-  shift
-elif [ "$1" = "--uninstall" ]; then
+elif [ "$SCOPE" = "uninstall" ]; then
   SKILL_DIR="${HOME}/.claude/skills"
   for skill in $SKILLS; do
     rm -rf "${SKILL_DIR}/${skill}"
@@ -38,4 +59,8 @@ for skill in $SKILLS; do
 done
 
 echo ""
-echo "Done — skills are now available in Claude Code."
+if [ "$VERSION" = "latest" ]; then
+  echo "Done — skills (latest) are now available in Claude Code."
+else
+  echo "Done — skills (${VERSION}) are now available in Claude Code."
+fi
